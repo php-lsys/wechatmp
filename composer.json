@@ -1,0 +1,22 @@
+{
+	"name" : "lsys/wechatmp",
+	"type" : "library",
+	"license": "Apache-2.0",
+	"version" : "1.0.0",
+	"description" : "lsys module wechatmp",
+	"autoload" : {
+		"psr-4" : {
+			"LSYS\\" : "src/classes/LSYS/"
+		}
+	},
+	"require" : {
+		"php" : ">=5.6",
+		"lsys/config" : "~1.0.0",
+		"lsys/session" : "~1.0.0"
+	},
+	"suggest": {
+		"lsys/wechatmp-accesscache-memcache":"~1.0.0",
+     	"lsys/wechatmp-accesscache-memcached":"~1.0.0",
+     	"lsys/wechatmp-accesscache-redis":"~1.0.0"
+    }
+}
