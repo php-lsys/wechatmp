@@ -18,16 +18,16 @@ class Card implements Type{
 	public function __construct($card_id){
 		$this->body=$card_id;
 	}
-	public function to_Xml($ToUserName, $FromUserName){
+	public function toXml($ToUserName, $FromUserName){
 		throw new Exception("not support to xml");
 	}
-	public function to_array(){
+	public function toArray(){
 		return array
 	    (
     		"card_id"=>$this->body
 	    );
 	}
-	public function to_name(){
+	public function toName(){
 		return 'wxcard';
 	}
 }

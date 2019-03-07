@@ -11,7 +11,7 @@ class Utils extends Access{
 	 * 得到首页地址 
 	 * @return string
 	 */
-	public static function home_url(){
+	public static function homeUrl(){
 		if (isset($_SERVER['HTTP_HOST'])){
 			if (isset($_SERVER['HTTPS'])&&strtoupper($_SERVER['HTTPS']) == 'ON'){
 				$p='https://';
@@ -61,7 +61,7 @@ EOT;
 	 * @return \LSYS\Wechat\Result
 	 */
 	public function shorturl($long_url){
-		$data=$this->_make_run($this->shorturl_url,array(
+		$data=$this->_makeRun($this->shorturl_url,array(
 				'action'=>'long2short',
 				'long_url'=>$long_url,
 		));
@@ -95,7 +95,7 @@ EOT;
 		}else if (isset($region)){
 			$data['region']=$region;
 		}
-		$data=$this->_make_run($this->semproxy_url,$data);
+		$data=$this->_makeRun($this->semproxy_url,$data);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}

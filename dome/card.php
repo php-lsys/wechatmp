@@ -8,15 +8,15 @@ use LSYS\Wechat\KF;
 use LSYS\Wechat\Media;
 include_once __DIR__."/Bootstarp.php";
 // 获取使用文件缓存 access
-Access::set_share_access(new LSYS\Wechat\AccessCache\Folder(__DIR__."/access_cache"));
+Access::setShareAccess(new LSYS\Wechat\AccessCache\Folder(__DIR__."/access_cache"));
 
-$card=\LSYS\Wechat\DI::get()->wechat_card();
+$card=\LSYS\Wechat\DI::get()->wechatCard();
 
-$media=\LSYS\Wechat\DI::get()->wechat_media();
+$media=\LSYS\Wechat\DI::get()->wechatMedia();
 
-$logo_url=$media->material_img("a.png")->get_data();
+$logo_url=$media->materialImg("a.png")->getData();
 
-$mcard_data=card::meeting_ticket(array(
+$mcard_data=card::meetingTicket(array(
 			'logo_url'=>'http://mmbiz.qpic.cn/mmbiz_png/xj7LAW0azJ53t3O6iaIwK2sjCMm0nv0YHWhktEYsVd7PNjkmjWYXkt0UGiaIIxpogfJ5ibImU1Yl08ibwBkCbYBE4g/0',
 			'url'=>'http://mmbiz.qpic.cn/',//门票详情或订单页
 			'brand_name'=>'商家名',
@@ -34,13 +34,13 @@ $mcard_data=card::meeting_ticket(array(
 			'quantity'=>1,//库存
 		)
 );
-if (!$mcard_data->get_status()){
+if (!$mcard_data->getStatus()){
 	die('fail');
 }
 //创建会议门票
-$data=$card->create($mcard_data->get_data());
+$data=$card->create($mcard_data->getData());
 outresult($data);
-$card_id=$data->get_data();
+$card_id=$data->getData();
 
 //生成二维码,放置在网页上,识别二维码后可加入卡包
 $data=$card->qrcode(Card::QR_CARD,array(
@@ -55,7 +55,7 @@ outresult($data);
 
 //加入卡包后会收到信息 event:user_get_card
 //在信息中修改票信息
-$data=$card->meeting_update(
+$data=$card->meetingUpdate(
 		$card_id,
 		"198374613512",
 		"座位03",
@@ -66,18 +66,18 @@ outresult($data);
 
 
 //消费卡券时,先查询指定卡券状态
-$data=$card->code_get($card_id, "198374613512");
+$data=$card->codeGet($card_id, "198374613512");
 outresult($data);
 
 //核销卡券
-$data=$card->code_consume($card_id, "198374613512");
+$data=$card->codeConsume($card_id, "198374613512");
 outresult($data);
 
 
 
 //景点门票--------------------
 
-$scenic_data=card::scenic_ticket(array(
+$scenic_data=card::scenicTicket(array(
 		'logo_url'=>'http://mmbiz.qpic.cn/mmbiz_png/xj7LAW0azJ53t3O6iaIwK2sjCMm0nv0YHWhktEYsVd7PNjkmjWYXkt0UGiaIIxpogfJ5ibImU1Yl08ibwBkCbYBE4g/0',
 		'url'=>'http://mmbiz.qpic.cn/',//门票详情或订单页
 		'brand_name'=>'商家名',
@@ -95,14 +95,14 @@ $scenic_data=card::scenic_ticket(array(
 		'quantity'=>1,//库存
 )
 		);
-if (!$scenic_data->get_status()){
+if (!$scenic_data->getStatus()){
 	die('fail');
 }
 //创建景点门票
-$data=$card->create($mcard_data->get_data());
+$data=$card->create($mcard_data->getData());
 outresult($data);
 
-$card_id=$data->get_data();
+$card_id=$data->getData();
 
 //景点门票二维码
 $data=$card->qrcode(Card::QR_CARD,array(
@@ -131,7 +131,7 @@ outresult($data);
 
 
 //以下测试临时用..
-$kf=\LSYS\Wechat\DI::get()->wechat_kf();
+$kf=\LSYS\Wechat\DI::get()->wechatKF();
 //发送消息
-$data=$kf->kf_send("oUCt-xAeVs7n5_WM5gYFV3WgJjbE",new \LSYS\Wechat\Msg\Type\Card($card_id));
+$data=$kf->kfSend("oUCt-xAeVs7n5_WM5gYFV3WgJjbE",new \LSYS\Wechat\Msg\Type\Card($card_id));
 outresult($data);

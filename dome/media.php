@@ -6,62 +6,62 @@ use LSYS\Wechat\Access;
 use LSYS\Wechat\Media;
 include_once __DIR__."/Bootstarp.php";
 // 获取使用文件缓存 access
-Access::set_share_access(new LSYS\Wechat\AccessCache\Folder(__DIR__."/access_cache"));
+Access::setShareAccess(new LSYS\Wechat\AccessCache\Folder(__DIR__."/access_cache"));
 
-$media=\LSYS\Wechat\DI::get()->wechat_media();
+$media=\LSYS\Wechat\DI::get()->wechatMedia();
 
 //上传临时资源
 // $data=$media->upload(__DIR__."/aa.png",Media::TYPE_IMAGE);
 // outresult($data);
 
 //获取临时资源
-// $data=$media->get($data->get_data());
+// $data=$media->get($data->getData());
 // if (!strval($data)){
-// 	die($data->get_msg());
+// 	die($data->getMsg());
 // }else{
 // 	//图片为图片内容
 // 	//视频为地址
-// 	print_r($data->get_data());
+// 	print_r($data->getData());
 // }
 
 //上传永久图片,文章用到
-$data=$media->material_img(__DIR__."/aa.png");
+$data=$media->materialImg(__DIR__."/aa.png");
 if (!strval($data)){
-	die($data->get_msg());
+	die($data->getMsg());
 }else{
 	//图片为图片内容
 	//视频为地址
-	print_r($data->get_data());
+	print_r($data->getData());
 }
 
 
 //上传永久文件,消息或其他用到
-// $data=$media->material_upload(__DIR__."/aa.png",Media::TYPE_IMAGE);
+// $data=$media->materialUpload(__DIR__."/aa.png",Media::TYPE_IMAGE);
 // outresult($data);
 
 //获取资源
-// $data=$media->material_get("9Y7jscbgJYVNf_zz-dQ0Fyr-epZMmgYx6QJ-jnj_xno");
+// $data=$media->materialGet("9Y7jscbgJYVNf_zz-dQ0Fyr-epZMmgYx6QJ-jnj_xno");
 // if (!strval($data)){
-// 	die($data->get_msg());
+// 	die($data->getMsg());
 // }else{
 // 	//图片为图片内容
 // 	//视频为地址
-// 	print_r($data->get_data());
+// 	print_r($data->getData());
 // }
 
 //删除资源
-// $data=$media->material_del("9Y7jscbgJYVNf_zz-dQ0Fyr-epZMmgYx6QJ-jnj_xno");
+// $data=$media->materialDel("9Y7jscbgJYVNf_zz-dQ0Fyr-epZMmgYx6QJ-jnj_xno");
 //outresult($data);
 
 //获取资源列表
-// $data=$media->material_batchget(Media::TYPE_IMAGE);
+// $data=$media->materialBatchget(Media::TYPE_IMAGE);
 // outresult($data);
 //获取资源数量
-// $data=$media->material_count();
+// $data=$media->materialCount();
 // outresult($data);
 
 //添加文章
-// $data=$media->material_add_news(array(
+// $data=$media->materialAddNews(array(
 //        "title"=> '标题',
 //        "thumb_media_id"=>'9Y7jscbgJYVNf_zz-dQ0F27rJMCMUN3jlNpdIlNrZdk',
 //        "author"=> '作者',
@@ -73,7 +73,7 @@ if (!strval($data)){
 // outresult($data);
 
 //修改文章
-// $data=$media->material_update_news('9Y7jscbgJYVNf_zz-dQ0F60YZ1VwxOaM_KUudG3aPRc',0,array(
+// $data=$media->materialUpdateNews('9Y7jscbgJYVNf_zz-dQ0F60YZ1VwxOaM_KUudG3aPRc',0,array(
 //        "title"=> '标题1',
 //        "thumb_media_id"=>'9Y7jscbgJYVNf_zz-dQ0F27rJMCMUN3jlNpdIlNrZdk',
 //        "author"=> '作者',

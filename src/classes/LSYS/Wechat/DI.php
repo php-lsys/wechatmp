@@ -1,19 +1,19 @@
 <?php
 namespace LSYS\Wechat;
 /**
- * @method \LSYS\Wechat\Sns wechat_sns($config=null)
- * @method \LSYS\Wechat\JS wechat_js($config=null)
- * @method \LSYS\Wechat\Card wechat_card($config=null)
- * @method \LSYS\Wechat\AutoReply wechat_auto_reply($config=null)
- * @method \LSYS\Wechat\KF wechat_kf($config=null)
- * @method \LSYS\Wechat\Mass wechat_mass($config=null)
- * @method \LSYS\Wechat\Media wechat_media($config=null)
- * @method \LSYS\Wechat\Menu wechat_menu($config=null)
- * @method \LSYS\Wechat\Msg wechat_msg($config=null)
- * @method \LSYS\Wechat\Qrcode wechat_qrcode($config=null)
- * @method \LSYS\Wechat\TplMsg wechat_tplmsg($config=null)
- * @method \LSYS\Wechat\User wechat_user($config=null)
- * @method \LSYS\Wechat\Utils wechat_utils($config=null)
+ * @method \LSYS\Wechat\Sns wechatSNS($config=null)
+ * @method \LSYS\Wechat\JS wechatJs($config=null)
+ * @method \LSYS\Wechat\Card wechatCard($config=null)
+ * @method \LSYS\Wechat\AutoReply wechatAutoReply($config=null)
+ * @method \LSYS\Wechat\KF wechatKF($config=null)
+ * @method \LSYS\Wechat\Mass wechatMass($config=null)
+ * @method \LSYS\Wechat\Media wechatMedia($config=null)
+ * @method \LSYS\Wechat\Menu wechatMenu($config=null)
+ * @method \LSYS\Wechat\Msg wechatMsg($config=null)
+ * @method \LSYS\Wechat\QrCode wechatQrCode($config=null)
+ * @method \LSYS\Wechat\TplMsg wechatTplMsg($config=null)
+ * @method \LSYS\Wechat\User wechatUser($config=null)
+ * @method \LSYS\Wechat\Utils wechatUtils($config=null)
  */
 class DI extends \LSYS\DI{
     /**
@@ -26,7 +26,7 @@ class DI extends \LSYS\DI{
      */
     public static function get(){
         $di=parent::get();
-        !isset($di->wechat_sns)&&$di->wechat_sns(
+        !isset($di->wechatSNS)&&$di->wechatSNS(
             new \LSYS\DI\ShareCallback(function($config=null){
                 return $config?$config:self::$config;
             },function($config=null){
@@ -34,7 +34,7 @@ class DI extends \LSYS\DI{
                 return new \LSYS\Wechat\Sns($config);
             })
         );
-        !isset($di->wechat_js)&&$di->wechat_js(
+        !isset($di->wechatJs)&&$di->wechatJs(
             new \LSYS\DI\ShareCallback(function($config=null){
                 return $config?$config:self::$config;
             },function($config=null){
@@ -42,7 +42,7 @@ class DI extends \LSYS\DI{
                 return new \LSYS\Wechat\JS($config);
             })
         );
-        !isset($di->wechat_card)&&$di->wechat_card(
+        !isset($di->wechatCard)&&$di->wechatCard(
             new \LSYS\DI\ShareCallback(function($config=null){
                 return $config?$config:self::$config;
             },function($config=null){
@@ -50,7 +50,7 @@ class DI extends \LSYS\DI{
                 return new \LSYS\Wechat\Card($config);
             })
         );
-        !isset($di->wechat_auto_reply)&&$di->wechat_auto_reply(
+        !isset($di->wechatAutoReply)&&$di->wechatAutoReply(
             new \LSYS\DI\ShareCallback(function($config=null){
                 return $config?$config:self::$config;
             },function($config=null){
@@ -58,7 +58,7 @@ class DI extends \LSYS\DI{
                 return new \LSYS\Wechat\AutoReply($config);
             })
         );
-        !isset($di->wechat_kf)&&$di->wechat_kf(
+        !isset($di->wechatKF)&&$di->wechatKF(
             new \LSYS\DI\ShareCallback(function($config=null){
                 return $config?$config:self::$config;
             },function($config=null){
@@ -66,7 +66,7 @@ class DI extends \LSYS\DI{
                 return new \LSYS\Wechat\KF($config);
             })
         );
-        !isset($di->wechat_mass)&&$di->wechat_mass(
+        !isset($di->wechatMass)&&$di->wechatMass(
             new \LSYS\DI\ShareCallback(function($config=null){
                 return $config?$config:self::$config;
             },function($config=null){
@@ -74,7 +74,7 @@ class DI extends \LSYS\DI{
                 return new \LSYS\Wechat\Mass($config);
             })
         );
-        !isset($di->wechat_media)&&$di->wechat_media(
+        !isset($di->wechatMedia)&&$di->wechatMedia(
             new \LSYS\DI\ShareCallback(function($config=null){
                 return $config?$config:self::$config;
             },function($config=null){
@@ -82,7 +82,7 @@ class DI extends \LSYS\DI{
                 return new \LSYS\Wechat\Media($config);
             })
         );
-        !isset($di->wechat_menu)&&$di->wechat_menu(
+        !isset($di->wechatMenu)&&$di->wechatMenu(
             new \LSYS\DI\ShareCallback(function($config=null){
                 return $config?$config:self::$config;
             },function($config=null){
@@ -90,7 +90,7 @@ class DI extends \LSYS\DI{
                 return new \LSYS\Wechat\Menu($config);
             })
         );
-        !isset($di->wechat_msg)&&$di->wechat_msg(
+        !isset($di->wechatMsg)&&$di->wechatMsg(
             new \LSYS\DI\ShareCallback(function($config=null){
                 return $config?$config:self::$config;
             },function($config=null){
@@ -98,7 +98,7 @@ class DI extends \LSYS\DI{
                 return new \LSYS\Wechat\Msg($config);
             })
         );
-        !isset($di->wechat_qrcode)&&$di->wechat_qrcode(
+        !isset($di->wechatQrCode)&&$di->wechatQrCode(
             new \LSYS\DI\ShareCallback(function($config=null){
                 return $config?$config:self::$config;
             },function($config=null){
@@ -106,7 +106,7 @@ class DI extends \LSYS\DI{
                 return new \LSYS\Wechat\Qrcode($config);
             })
         );
-        !isset($di->wechat_tplmsg)&&$di->wechat_tplmsg(
+        !isset($di->wechatTplMsg)&&$di->wechatTplMsg(
             new \LSYS\DI\ShareCallback(function($config=null){
                 return $config?$config:self::$config;
             },function($config=null){
@@ -114,15 +114,7 @@ class DI extends \LSYS\DI{
                 return new \LSYS\Wechat\TplMsg($config);
             })
         );
-        !isset($di->wechat_qrcode)&&$di->wechat_qrcode(
-            new \LSYS\DI\ShareCallback(function($config=null){
-                return $config?$config:self::$config;
-            },function($config=null){
-                $config=\LSYS\Config\DI::get()->config($config?$config:self::$config);
-                return new \LSYS\Wechat\Qrcode($config);
-            })
-        );
-        !isset($di->wechat_user)&&$di->wechat_user(
+        !isset($di->wechatUser)&&$di->wechatUser(
             new \LSYS\DI\ShareCallback(function($config=null){
                 return $config?$config:self::$config;
             },function($config=null){
@@ -130,7 +122,7 @@ class DI extends \LSYS\DI{
                 return new \LSYS\Wechat\User($config);
             })
         );
-        !isset($di->wechat_utils)&&$di->wechat_utils(
+        !isset($di->wechatUtils)&&$di->wechatUtils(
             new \LSYS\DI\ShareCallback(function($config=null){
                 return $config?$config:self::$config;
             },function($config=null){

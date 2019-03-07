@@ -30,16 +30,16 @@ class NewsChild{
 					 </item>";
 		return  sprintf($ItemTpl, $this->title, $this->description, $this->picurl, $this->url);
 	}
-	public function get_title(){
+	public function getTitle(){
 		return $this->title;
 	}
-	public function get_description(){
+	public function getDescription(){
 		return $this->description;
 	}
-	public function get_picurl(){
+	public function getPicurl(){
 		return $this->picurl;
 	}
-	public function get_url(){
+	public function getUrl(){
 		return $this->url;
 	}
 	

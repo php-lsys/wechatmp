@@ -4,14 +4,14 @@
  */
 use LSYS\Wechat\Sns;
 include_once __DIR__."/Bootstarp.php";
-$sns=\LSYS\Wechat\DI::get()->wechat_sns();
-$result=$sns->access_token();
-if (!$result->get_status()){
-	die($result->get_msg());
+$sns=\LSYS\Wechat\DI::get()->wechatSNS();
+$result=$sns->accessToken();
+if (!$result->getStatus()){
+	die($result->getMsg());
 }
-$user_info=$sns->get_user();
-if (!$user_info->get_status()){
-	die($user_info->get_msg());
+$user_info=$sns->getUser();
+if (!$user_info->getStatus()){
+	die($user_info->getMsg());
 }
 echo "<pre>";
-print_r($user_info->get_data());
+print_r($user_info->getData());

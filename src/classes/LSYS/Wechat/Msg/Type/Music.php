@@ -27,7 +27,7 @@ class Music implements Type{
 		$this->hdurl=$hdurl;
 		$this->media_id=$media_id;
 	}
-	public function to_Xml($ToUserName, $FromUserName){
+	public function toXml($ToUserName, $FromUserName){
 		$Tpl = "<xml>
 					 <ToUserName><![CDATA[%s]]></ToUserName>
 					 <FromUserName><![CDATA[%s]]></FromUserName>
@@ -45,10 +45,10 @@ class Music implements Type{
 			$url=$hdurl;
 		}
 		$time = time();
-		$resultStr = sprintf($Tpl, $ToUserName, $FromUserName, $time,$this->to_name(), $this->title, $this->desp,$this->url,$this->hdurl,$this->media_id);
+		$resultStr = sprintf($Tpl, $ToUserName, $FromUserName, $time,$this->toName(), $this->title, $this->desp,$this->url,$this->hdurl,$this->media_id);
 		return  $resultStr;
 	}
-	public function to_array(){
+	public function toArray(){
 		return array
 		(
 				"title"=>$this->title,
@@ -58,7 +58,7 @@ class Music implements Type{
 		      "thumb_media_id"=>$this->media_id
 		);
 	}
-	public function to_name(){
+	public function toName(){
 		return 'music';
 	}
 }

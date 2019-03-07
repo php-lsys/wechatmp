@@ -15,7 +15,7 @@ class JS extends Access{
 	 * JS ticket 缓存接口
 	 * @param AccessShare $share
 	 */
-	public static function set_share_jsapi_ticket(AccessShare $share){
+	public static function setShareJsapiTicket(AccessShare $share){
 		self::$share_jsapi_ticket=$share;
 	}
 	/**
@@ -26,7 +26,7 @@ class JS extends Access{
 	 * api ticket 缓存接口
 	 * @param AccessShare $share
 	 */
-	public static function set_share_api_ticket(AccessShare $share){
+	public static function setShareApiTicket(AccessShare $share){
 		self::$share_api_ticket=$share;
 	}
 	/**
@@ -41,15 +41,15 @@ class JS extends Access{
 	 * 获取js ticket
 	 * @return Result
 	 */
-	public function get_jsapi_ticket(){
+	public function getJsapiTicket(){
 		if (self::$share_jsapi_ticket){
-			list($ticket,$timeout)=self::$share_jsapi_ticket->get_access($this->_appid);
+			list($ticket,$timeout)=self::$share_jsapi_ticket->getAccess($this->_appid);
 			if ($ticket&&$timeout>time()-2) return new Result(true, $ticket);
 		}
-		$data=$this->_make_run($this->jsapi_ticket_url);
+		$data=$this->_makeRun($this->jsapi_ticket_url);
 		if (is_object($data)) return $data;
 		if (self::$share_jsapi_ticket instanceof AccessCache){
-			self::$share_jsapi_ticket->set_access($this->_appid,$data['ticket'],$data['expires_in']-2);
+			self::$share_jsapi_ticket->setAccess($this->_appid,$data['ticket'],$data['expires_in']-2);
 		}
 		return new Result(true, $data['ticket']);
 	}
@@ -61,13 +61,13 @@ class JS extends Access{
 	 * @param string $rand 随机字符
 	 * @return string
 	 */
-	public function get_jsapi_signature($url,&$ticket=null,&$time=null,&$rand=null){
-		if(empty($url))$url=Utils::home_url();
+	public function getJsapiSignature($url,&$ticket=null,&$time=null,&$rand=null){
+		if(empty($url))$url=Utils::homeUrl();
 		$url=preg_replace("/#.*$/", "", $url);
 		if ($rand==null) $rand=uniqid();
 		$_rand='noncestr='.$rand;
-		if ($ticket==null)$ticket=$this->get_jsapi_ticket();
-		if ($ticket instanceof Result) $ticket=$ticket->get_data();
+		if ($ticket==null)$ticket=$this->getJsapiTicket();
+		if ($ticket instanceof Result) $ticket=$ticket->getData();
 		if ($time==null) $time=time();
 		$timestamp='timestamp='.$time;
 		$_url='url='.$url;
@@ -81,15 +81,15 @@ class JS extends Access{
 	 * 获取 api ticket 卡券用到
 	 * @return Result
 	 */
-	public function get_api_ticket(){
+	public function getApiTicket(){
 		if (self::$share_api_ticket){
-			list($ticket,$timeout)=self::$share_api_ticket->get_access($this->_appid);
+			list($ticket,$timeout)=self::$share_api_ticket->getAccess($this->_appid);
 			if ($ticket&&$timeout>time()-2) return new Result(true, $ticket);
 		}
-		$data=$this->_make_run($this->api_ticket_url);
+		$data=$this->_makeRun($this->api_ticket_url);
 		if (is_object($data)) return $data;
 		if (self::$share_api_ticket instanceof AccessCache){
-			self::$share_api_ticket->set_access($this->_appid,$data['ticket'],$data['expires_in']-2);
+			self::$share_api_ticket->setAccess($this->_appid,$data['ticket'],$data['expires_in']-2);
 		}
 		return new Result(true, $data['ticket']);
 	}

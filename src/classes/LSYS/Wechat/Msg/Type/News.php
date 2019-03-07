@@ -18,7 +18,7 @@ class News implements Type{
 		array_push($this->wechat_callback_item_new_articles_items, $newitem);
 		return $this;
 	}
-	public function to_Xml($ToUserName, $FromUserName){
+	public function toXml($ToUserName, $FromUserName){
 		$count=0;
 		$item_str='';
 		foreach ($this->wechat_callback_item_new_articles_items as $v){
@@ -38,18 +38,18 @@ class News implements Type{
 					 %s
 				 </Articles>
 				 </xml>";
-		$resultStr = sprintf($Tpl, $ToUserName, $FromUserName, $time,$this->to_name(), $count, $item_str);
+		$resultStr = sprintf($Tpl, $ToUserName, $FromUserName, $time,$this->toName(), $count, $item_str);
 		return  $resultStr;
 	}
-	public function to_array(){
+	public function toArray(){
 		$items=array();
 		foreach ($this->wechat_callback_item_new_articles_items as $v){
 			if ($v instanceof NewsChild) {
 				$items[]=array(
-					"title"=>$v->get_title(),
-					"description"=>$v->get_description(),
-					"url"=>$v->get_url(),
-					"picurl"=>$v->get_picurl()
+					"title"=>$v->getTitle(),
+					"description"=>$v->getDescription(),
+					"url"=>$v->getUrl(),
+					"picurl"=>$v->getPicurl()
 				);
 			}
 		}
@@ -57,7 +57,7 @@ class News implements Type{
        		"articles"=> $items
 	    );
 	}
-	public function to_name(){
+	public function toName(){
 		return 'news';
 	}
 }

@@ -19,13 +19,13 @@ class Result{
 	public function __toString(){
 		return $this->_status?'1':'';
 	}
-	public function get_msg(){
+	public function getMsg(){
 		return $this->_msg;
 	}
-	public function get_status(){
+	public function getStatus(){
 		return $this->_status;
 	}
-	public function get_data(){
+	public function getData(){
 		return $this->_data;
 	}
 }

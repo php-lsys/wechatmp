@@ -17,7 +17,7 @@ class Voice implements Type{
 	public function __construct($media_id){
 		$this->body=$media_id;
 	}
-	public function to_Xml($ToUserName, $FromUserName){
+	public function toXml($ToUserName, $FromUserName){
 		$time = time();
 		$Tpl = "<xml>
 			<ToUserName><![CDATA[%s]]></ToUserName>
@@ -28,15 +28,15 @@ class Voice implements Type{
 			<MediaId><![CDATA[%s]]></MediaId>
 			</Image>
 			</xml>";
-		$resultStr = sprintf($Tpl, $ToUserName, $FromUserName, $time,$this->to_name(), $this->body);
+		$resultStr = sprintf($Tpl, $ToUserName, $FromUserName, $time,$this->toName(), $this->body);
 		return  $resultStr;
 	}
-	public function to_array(){
+	public function toArray(){
 		return array(
 		  "media_id"=>$this->body
 		);
 	}
-	public function to_name(){
+	public function toName(){
 		return 'voice';
 	}
 }

@@ -37,8 +37,8 @@ class KF extends Access{
 	/**
 	 * 创建客服
 	 */
-	public function kf_add($account,$nickname,$password){
-		$data=$this->_make_run($this->add_kfaccount_url,array(
+	public function kfAdd($account,$nickname,$password){
+		$data=$this->_makeRun($this->add_kfaccount_url,array(
 			"kf_account"=>$account,'nickname'=>$nickname,'password'=>$password
 		));
 		if (is_object($data)) return $data;
@@ -47,8 +47,8 @@ class KF extends Access{
 	/**
 	 * 更新客服
 	 */
-	public function kf_update($account,$nickname,$password){
-		$data=$this->_make_run($this->update_kfaccount_url,array(
+	public function kfUpdate($account,$nickname,$password){
+		$data=$this->_makeRun($this->update_kfaccount_url,array(
 			"kf_account"=>$account,'nickname'=>$nickname,'password'=>$password
 		));
 		if (is_object($data)) return $data;
@@ -57,8 +57,8 @@ class KF extends Access{
 	/**
 	 * 删除客服
 	 */
-	public function kf_del($account,$nickname,$password){
-		$data=$this->_make_run($this->del_kfaccount_url,array(
+	public function kfDel($account,$nickname,$password){
+		$data=$this->_makeRun($this->del_kfaccount_url,array(
 			"kf_account"=>$account,'nickname'=>$nickname,'password'=>$password
 		));
 		if (is_object($data)) return $data;
@@ -67,9 +67,9 @@ class KF extends Access{
 	/**
 	 * 客服头像
 	 */
-	public function kf_avatar($account,$file){
+	public function kfAvatar($account,$file){
 		$url=str_replace('{KFACCOUNT}',$account, $this->uploadheadimg_url);
-		$data=$this->_make_run($url,array(
+		$data=$this->_makeRun($url,array(
 			'file'=>new \CURLFile($file)
 		),false);
 		if (is_object($data)) return $data;
@@ -78,8 +78,8 @@ class KF extends Access{
 	/**
 	 * 获取客服列表
 	 */
-	public function kf_get(){
-		$data=$this->_make_run($this->get_kfaccount_url);
+	public function kfGet(){
+		$data=$this->_makeRun($this->get_kfaccount_url);
 		if (is_object($data)) return $data;
 		return new Result(true, $data['kf_list']);
 	}
@@ -90,14 +90,14 @@ class KF extends Access{
 	 * @param string $kf_account 使用那个账号发送
 	 * @return Result
 	 */
-	public function kf_send($to_user,Type $data,$kf_account=null){
+	public function kfSend($to_user,Type $data,$kf_account=null){
 		$arr=array(
 				'touser'=>$to_user,
-				'msgtype'=>$data->to_name(),
-				$data->to_name()=>$data->to_array()
+				'msgtype'=>$data->toName(),
+				$data->toName()=>$data->toArray()
 		);
 		if ($kf_account) $arr['customservice']['kf_account']=$kf_account;
-		$data=$this->_make_run($this->send_kfaccount_url,$arr);
+		$data=$this->_makeRun($this->send_kfaccount_url,$arr);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}

@@ -7,4 +7,4 @@ use LSYS\Wechat\Utils;
 include_once __DIR__."/Bootstarp.php";
 
 $url="http://192.168.2.210/lwxtplmsg/dome/sns_back.php";
-Utils::redirect((\LSYS\Wechat\DI::get()->wechat_sns())->qrcode_access_url($url));
+Utils::redirect((\LSYS\Wechat\DI::get()->wechatSNS())->qrcodeAccessUrl($url));

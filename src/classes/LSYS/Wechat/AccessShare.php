@@ -7,5 +7,5 @@
  */
 namespace LSYS\Wechat;
 interface AccessShare{
-	public function get_access($appid);
+	public function getAccess($appid);
 }

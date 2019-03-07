@@ -33,15 +33,15 @@ class Msg extends AppBase
 	 * $callback 是回调函数,参数有 $msgtype $msgdata
 	 * 返回IwechatCallbackItem
 	 */
-	public function set_callback(Callback $callback){
+	public function setCallback(Callback $callback){
 		$this->_callback=$callback;
 		return $this;
 	}
 	/**
 	 * 是否是事件请求
 	 */
-	public function is_callback(){
-		if ($this->_is_request()&&$this->checkSignature()&&strlen($this->_post_data())>0) {
+	public function isCallback(){
+		if ($this->_isRequest()&&$this->checkSignature()&&strlen($this->_postData())>0) {
 			return true;
 		}
 		return false;
@@ -49,7 +49,7 @@ class Msg extends AppBase
 	/**
 	 * 是否是校验请求
 	 */
-	protected function _is_request(){
+	protected function _isRequest(){
 		if (isset($_GET["signature"])&&
 				isset($_GET["timestamp"])&&
 				isset($_GET["nonce"])
@@ -58,7 +58,7 @@ class Msg extends AppBase
 				}
 	}
 	//get post data
-	protected function _post_data(){
+	protected function _postData(){
 		if (isset($GLOBALS["HTTP_RAW_POST_DATA"])&&strlen($GLOBALS["HTTP_RAW_POST_DATA"])>0) return $GLOBALS["HTTP_RAW_POST_DATA"];
 		if (strlen(file_get_contents("php://input"))>0) return file_get_contents("php://input");
 		return null;
@@ -66,8 +66,8 @@ class Msg extends AppBase
 	/**
 	 * 是否是校验请求
 	 */
-	public function is_valid(){
-		if ($this->_is_request()&&
+	public function isValid(){
+		if ($this->_isRequest()&&
 				isset($_GET["echostr"])
 				) {
 					return true;
@@ -92,13 +92,13 @@ class Msg extends AppBase
 	 * 获得的请求的 signature
 	 * @return string
 	 */
-	protected function get_request_signature(){
+	protected function getRequestSignature(){
 		return isset($_GET["signature"])?$_GET["signature"]:'';
 	}
 	/**
 	 * 校验完成输出
 	 */
-	public static function valid_echo(){
+	public static function validEcho(){
 		echo isset($_GET["echostr"])?$_GET["echostr"]:'';
 		exit();
 	}
@@ -107,7 +107,7 @@ class Msg extends AppBase
 	 */
 	protected function checkSignature()
 	{
-		$signature = $this->get_request_signature();
+		$signature = $this->getRequestSignature();
 		$timestamp = $_GET["timestamp"];
 		$nonce = $_GET["nonce"];
 		$token = $this->_token;
@@ -119,9 +119,9 @@ class Msg extends AppBase
 		}
 	}
 	public function listen(Callback $callback=null){
-		if($this->is_valid())Msg::valid_echo();
-		if (!$this->is_callback()) return false;
-		$postStr = $this->_post_data();
+		if($this->isValid())Msg::validEcho();
+		if (!$this->isCallback()) return false;
+		$postStr = $this->_postData();
 		if (empty($postStr)) return false;
 		$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
 		$postObj=json_decode(json_encode($postObj),true);
@@ -143,7 +143,7 @@ class Msg extends AppBase
 		if ($this->_callback!=null){
 			$r = $this->_callback->call($postObj['MsgType'], $postObj);
 		}else if ($callback!=null)$r=$callback->call($postObj->MsgType, $postObj);
-		if (isset($r)&&$r instanceof Type)  $r=$r->to_xml($postObj['FromUserName'], $postObj['ToUserName']);
+		if (isset($r)&&$r instanceof Type)  $r=$r->toXml($postObj['FromUserName'], $postObj['ToUserName']);
 		if(isset($r)){
 			if (!isset($pc))die($r);
 			$errCode = $pc->encryptMsg($r, time(), uniqid(), $encryptMsg);

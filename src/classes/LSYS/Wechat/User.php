@@ -30,8 +30,8 @@ class User extends Access{
 	 * @param string $name
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function tag_add($name){
-		$data=$this->_make_run($this->tag_add_url,array(
+	public function tagAdd($name){
+		$data=$this->_makeRun($this->tag_add_url,array(
 			"tag" =>array("name" =>$name)
 		));
 		if (is_object($data)) return $data;
@@ -41,8 +41,8 @@ class User extends Access{
 	 * 获取标签
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function tag_get(){
-		$data=$this->_make_run($this->tag_get_url);
+	public function tagGet(){
+		$data=$this->_makeRun($this->tag_get_url);
 		if (is_object($data)) return $data;
 		return new Result(true, $data['tags']);
 	}
@@ -52,8 +52,8 @@ class User extends Access{
 	 * @param string $name
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function tag_update($tag_id,$name){
-		$data=$this->_make_run($this->tag_update_url,array(
+	public function tagUpdate($tag_id,$name){
+		$data=$this->_makeRun($this->tag_update_url,array(
 			"tag" =>array('id'=>$tag_id,"name" =>$name)
 		));
 		if (is_object($data)) return $data;
@@ -64,8 +64,8 @@ class User extends Access{
 	 * @param string $id
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function tag_del($tag_id){
-		$data=$this->_make_run($this->tag_del_url,array(
+	public function tagDel($tag_id){
+		$data=$this->_makeRun($this->tag_del_url,array(
 			"tag" =>array('id'=>$tag_id)
 		));
 		if (is_object($data)) return $data;
@@ -77,8 +77,8 @@ class User extends Access{
 	 * @param string $next_openid
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function tag_user_get($tag_id,$next_openid=''){
-		$data=$this->_make_run($this->tag_user_get_url,array(
+	public function tagUserGet($tag_id,$next_openid=''){
+		$data=$this->_makeRun($this->tag_user_get_url,array(
 			"tagid" =>$tag_id,
 			"next_openid" =>$next_openid,
 		));
@@ -91,9 +91,9 @@ class User extends Access{
 	 * @param string $id
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function tag_batchtagging($openid_list,$tag_id){
+	public function tagBatchtagging($openid_list,$tag_id){
 		if (is_string($openid_list))$openid_list=array($openid_list);
-		$data=$this->_make_run($this->tag_user_batch_on_url,array(
+		$data=$this->_makeRun($this->tag_user_batch_on_url,array(
 			"openid_list" =>$openid_list,
 			"tagid" => $tag_id
 		));
@@ -106,9 +106,9 @@ class User extends Access{
 	 * @param string $id
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function tag_batchuntagging($openid_list,$tag_id){
+	public function tagBatchuntagging($openid_list,$tag_id){
 		if (is_string($openid_list))$openid_list=array($openid_list);
-		$data=$this->_make_run($this->tag_user_batch_un_url,array(
+		$data=$this->_makeRun($this->tag_user_batch_un_url,array(
 			"openid_list" =>$openid_list,
 			"tagid" => $tag_id
 		));
@@ -120,8 +120,8 @@ class User extends Access{
 	 * @param string $openid
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function tag_get_user_tag($openid){
-		$data=$this->_make_run($this->tag_get_ids_url,array(
+	public function tagGetUserTag($openid){
+		$data=$this->_makeRun($this->tag_get_ids_url,array(
 			"openid" =>$openid,
 		));
 		if (is_object($data)) return $data;
@@ -134,7 +134,7 @@ class User extends Access{
 	 * @return \LSYS\Wechat\Result
 	 */
 	public function remark($openid,$remark){
-		$data=$this->_make_run($this->mark_url,array(
+		$data=$this->_makeRun($this->mark_url,array(
 			"openid" =>$openid,
 			"remark"=>$remark
 		));
@@ -146,9 +146,9 @@ class User extends Access{
 	 * @param string $openid
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function get_user($openid){
+	public function getUser($openid){
 		$url=str_replace("{OPENID}", $openid,$this->user_info_url);
-		$data=$this->_make_run($url);
+		$data=$this->_makeRun($url);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}
@@ -158,7 +158,7 @@ class User extends Access{
 	 * @param string $lang
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function batchget_user(array $openids,$lang='zh-CN'){
+	public function batchgetUser(array $openids,$lang='zh-CN'){
 		$user=array();
 		foreach ($openids as $v){
 			$user[]=array(
@@ -166,7 +166,7 @@ class User extends Access{
 				"lang"=>$lang
 			);
 		}
-		$data=$this->_make_run($this->user_batch_info_url,array(
+		$data=$this->_makeRun($this->user_batch_info_url,array(
 			"user_list"=>$user
 		));
 		if (is_object($data)) return $data;
@@ -177,9 +177,9 @@ class User extends Access{
 	 * @param string $next_openid
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function get_user_list($next_openid=''){
+	public function getUserList($next_openid=''){
 		$url=str_replace("{NEXT_OPENID}", $next_openid,$this->user_get_url);
-		$data=$this->_make_run($url);
+		$data=$this->_makeRun($url);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}
@@ -188,8 +188,8 @@ class User extends Access{
 	 * @param string $begin_openid
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function get_blacklist($begin_openid=''){
-		$data=$this->_make_run($this->black_list_url,array(
+	public function getBlacklist($begin_openid=''){
+		$data=$this->_makeRun($this->black_list_url,array(
 			'begin_openid'=>$begin_openid
 		));
 		if (is_object($data)) return $data;
@@ -200,9 +200,9 @@ class User extends Access{
 	 * @param array $opened_list
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function batch_blacklist($opened_list){
+	public function batchBlacklist($opened_list){
 		is_string($opened_list)&&$opened_list=array($opened_list);
-		$data=$this->_make_run($this->black_list_un_url,array(
+		$data=$this->_makeRun($this->black_list_un_url,array(
 			'opened_list'=>$opened_list
 		));
 		if (is_object($data)) return $data;
@@ -213,9 +213,9 @@ class User extends Access{
 	 * @param array $opened_list
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function batch_un_blacklist($opened_list){
+	public function batchUnBlacklist($opened_list){
 		is_string($opened_list)&&$opened_list=array($opened_list);
-		$data=$this->_make_run($this->black_list_on_url,array(
+		$data=$this->_makeRun($this->black_list_on_url,array(
 			'opened_list'=>$opened_list
 		));
 		if (is_object($data)) return $data;

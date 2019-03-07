@@ -47,8 +47,8 @@ class Menu extends Access{
 	 ),
 	 );
 	 */
-	public function menu_create(array $menu){
-		$data=$this->_make_run($this->create_menu_url,array(
+	public function menuCreate(array $menu){
+		$data=$this->_makeRun($this->create_menu_url,array(
 			"button"=>$menu
 		));
 		if (is_object($data)) return $data;
@@ -57,16 +57,16 @@ class Menu extends Access{
 	/**
 	 * 删除自定义菜单
 	 */
-	public function menu_delete(){
-		$data=$this->_make_run($this->delete_menu_url);
+	public function menuDelete(){
+		$data=$this->_makeRun($this->delete_menu_url);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}
 	/**
 	 * 得到已存在菜单
 	 */
-	public function menu_get(){
-		$data=$this->_make_run($this->get_menu_url);
+	public function menuGet(){
+		$data=$this->_makeRun($this->get_menu_url);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}
@@ -129,8 +129,8 @@ class Menu extends Access{
 	 * @param array $matchrule
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function conditional_add(array $menu,array $matchrule){
-		$data=$this->_make_run($this->create_conditional_url,array("button"=>$menu,'matchrule'=>$matchrule));
+	public function conditionalAdd(array $menu,array $matchrule){
+		$data=$this->_makeRun($this->create_conditional_url,array("button"=>$menu,'matchrule'=>$matchrule));
 		if (is_object($data)) return $data;
 		return new Result(true, $data['menuid']);
 	}
@@ -139,8 +139,8 @@ class Menu extends Access{
 	 * @param string $menuid
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function conditional_del($menuid){
-		$data=$this->_make_run($this->del_conditional_url,array("menuid"=>$menuid));
+	public function conditionalDel($menuid){
+		$data=$this->_makeRun($this->del_conditional_url,array("menuid"=>$menuid));
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}
@@ -150,7 +150,7 @@ class Menu extends Access{
 	 * @return \LSYS\Wechat\Result
 	 */
 	public function trymatch($user_id){
-		$data=$this->_make_run($this->trymatch_url,array("user_id"=>$user_id));
+		$data=$this->_makeRun($this->trymatch_url,array("user_id"=>$user_id));
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}

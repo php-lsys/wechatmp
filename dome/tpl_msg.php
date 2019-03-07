@@ -6,49 +6,49 @@ use LSYS\Wechat\Access;
 use LSYS\Wechat\TplMsg;
 include_once __DIR__."/Bootstarp.php";
 // 共享其他微信接口的授权 access 当你有其他微信接口时,可通过此方法共享 access ,来保证全局 access 唯一
-// Access::set_share_access(new class implements LSYS\Wechat\AccessCache{
-// 	public function get_access($appid){
+// Access::setShareAccess(new class implements LSYS\Wechat\AccessCache{
+// 	public function getAccess($appid){
 // 		//这里实现共享的access
 // 	}
-// 	public function set_access($appid,$access,$time){
+// 	public function setAccess($appid,$access,$time){
 // 		//这里access 存储
 // 	}
 // });
 
 // 获取使用文件缓存 access
-Access::set_share_access(new LSYS\Wechat\AccessCache\Folder(__DIR__."/access_cache"));
+Access::setShareAccess(new LSYS\Wechat\AccessCache\Folder(__DIR__."/access_cache"));
 
 // 获取使用redis缓存 access
-// Access::set_share_access(new LSYS\Wechat\AccessCache\Redis());
+// Access::setShareAccess(new LSYS\Wechat\AccessCache\Redis());
 
 //模板列表
-// $data=(new TplMsg)->get_template();
+// $data=(new TplMsg)->getTemplate();
 //outresult($data);
 //刪除模板
-// $data=(new TplMsg)->del_template("_HQXSfL6NaiWim4J6l9iY7T4y1CIxWw5T6IzMhKl2es");
+// $data=(new TplMsg)->delTemplate("_HQXSfL6NaiWim4J6l9iY7T4y1CIxWw5T6IzMhKl2es");
 // outresult($data);
 
 //设置行业
-// $data=(new TplMsg)->set_industry(1, 2);
+// $data=(new TplMsg)->setIndustry(1, 2);
 // outresult($data);
 
 // 获取行业
-// $data=(new TplMsg)->get_industry();
+// $data=(new TplMsg)->getIndustry();
 //outresult($data);
 
 
 //模板创建,需设置行业
-// $data=(new TplMsg)->add_template("TM00015");
+// $data=(new TplMsg)->addTemplate("TM00015");
 // if (strval($data)){
 // 	//success
-// 	echo $tpl_id=$data->get_data();//模板ID
+// 	echo $tpl_id=$data->getData();//模板ID
 // 	//
-// }else echo "fail:".$data->get_msg()."\n";
+// }else echo "fail:".$data->getMsg()."\n";
 
 
 // 通过模板ID发送消息
 // $tpl_id='HUjOa2TnKf6Vn5s7E_j29GRTEU9MkW-jc686jwVI6xQ';
-// $data=(new TplMsg)->tpl_send(
+// $data=(new TplMsg)->tplSend(
 // 		"oUCt-xAeVs7n5_WM5gYFV3WgJjbE",
 // 		$tpl_id,
 // 		array("title"=>array(
@@ -59,12 +59,12 @@ Access::set_share_access(new LSYS\Wechat\AccessCache\Folder(__DIR__."/access_cac
 // 		);
 // if (strval($data)){
 // 	//success
-// 	echo $msgid=$data->get_data();//消息ID
-// }else echo "fail:".$data->get_msg()."\n";
+// 	echo $msgid=$data->getData();//消息ID
+// }else echo "fail:".$data->getMsg()."\n";
 
 
 //通过配置名发送消息
-$data=(\LSYS\Wechat\DI::get()->wechat_tplmsg())->send(
+$data=(\LSYS\Wechat\DI::get()->wechatTplmsg())->send(
 	"oUCt-xAeVs7n5_WM5gYFV3WgJjbE", 
 	"reg_dome",
 	array("title"=>"2010-11-11 11:11:11","body"=>"fasdf"),
@@ -72,5 +72,5 @@ $data=(\LSYS\Wechat\DI::get()->wechat_tplmsg())->send(
 );
 if (strval($data)){
 	//success
-	echo $msgid=$data->get_data();//消息ID
-}else echo "fail:".$data->get_msg()."\n";
+	echo $msgid=$data->getData();//消息ID
+}else echo "fail:".$data->getMsg()."\n";

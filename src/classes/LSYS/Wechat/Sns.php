@@ -24,11 +24,11 @@ class Sns extends AppKey{
 		return $this;
 	}
 	//創建一個state
-	protected function _create_state(){
+	protected function _createState(){
 		return $this->session()->create("__LSYS_WECHAT_SNS_STATE__");
 	}
 	//檢查state是否正確
-	protected function _check_state($state){
+	protected function _checkState($state){
 	    return $this->session()->check("__LSYS_WECHAT_SNS_STATE__", $state);
 	}
 	/**
@@ -47,9 +47,9 @@ class Sns extends AppKey{
 	 */
 	const SCOPE_LOGIN="snsapi_login";
 	protected $sns_access_url="https://open.weixin.qq.com/connect/oauth2/authorize?appid={WEIXIN_APPID}&redirect_uri={REDIRECT_URI}&response_type=code&scope={SCOPE}&state={STATE}";
-	public function access_url($redirect_url=null,$scope=self::SCOPE_USERINFO){
-		$state=$this->_create_state();
-		if($redirect_url==null) $redirect_url=Utils::home_url();
+	public function accessUrl($redirect_url=null,$scope=self::SCOPE_USERINFO){
+		$state=$this->_createState();
+		if($redirect_url==null) $redirect_url=Utils::homeUrl();
 		$redirect_url=urlencode($redirect_url);
 		$url=str_replace('{WEIXIN_APPID}', $this->_appid, $this->sns_access_url);
 		$url=str_replace('{STATE}', $state, $url);
@@ -63,14 +63,14 @@ class Sns extends AppKey{
 	/**
 	 * 获得授权token
 	 */
-	public function access_token(){
+	public function accessToken(){
 		if (!isset($_GET['code'])||!isset($_GET['state'])) return new Result(false, 'not access');
-		if (!$this->_check_state($_GET['state'])) return new Result(false, 'state not match');
+		if (!$this->_checkState($_GET['state'])) return new Result(false, 'state not match');
 		$url=str_replace('{WEIXIN_APPID}', $this->_appid, $this->sns_access_token_url);
 		$url=str_replace('{WEIXIN_SECRET}', $this->_secret, $url);
 		$url=str_replace('{CODE}', $_GET['code'], $url);
-		$data=$this->_make_request($url);
-		$json=$this->_check_return($data);
+		$data=$this->_makeRequest($url);
+		$json=$this->_checkReturn($data);
 		if (is_object($json)) return $json;
 		$this->_sns_access_token=$json;
 		return new Result(true, $json);
@@ -79,26 +79,26 @@ class Sns extends AppKey{
 	 * 获得授权token
 	 * @return mixed
 	 */
-	public function get_access_token(){
+	public function getAccessToken(){
 		return $this->_sns_access_token;
 	}
 	/**
 	 * 设置授权token
 	 * @return mixed
 	 */
-	public function set_access_token($access_token=null){
+	public function setAccessToken($access_token=null){
 		$this->_sns_access_token=$access_token;
 	}
 	protected $sns_access_refresh_url="https://api.weixin.qq.com/sns/oauth2/refresh_token?appid={WEIXIN_APPID}&grant_type=refresh_token&refresh_token={REFRESH_TOKEN}";
 	/**
 	 * 刷新授权token
 	 */
-	public function refresh_token(){
+	public function refreshToken(){
 		if(empty($this->_sns_access_token)) return new Result(false, "can't refresh empty token"); 
 		$url=str_replace('{WEIXIN_APPID}', $this->_appid, $this->sns_access_refresh_url);
 		$url=str_replace('{REFRESH_TOKEN}', $this->_sns_access_token['refresh_token'], $url);
-		$body=$this->_make_request($url);
-		$json=$this->_check_return($body);
+		$body=$this->_makeRequest($url);
+		$json=$this->_checkReturn($body);
 		if (is_object($json)) return $json;
 		$this->_sns_access_token=$json;
 		return new Result(true, $json);
@@ -112,9 +112,9 @@ class Sns extends AppKey{
 	 * @param string $redirect_url
 	 * @return string
 	 */
-	public function qrcode_access_url($redirect_url=null,$scope=self::SCOPE_LOGIN){
-		$state=$this->_create_state();
-		if($redirect_url==null) $redirect_url=Utils::home_url();
+	public function qrcodeAccessUrl($redirect_url=null,$scope=self::SCOPE_LOGIN){
+		$state=$this->_createState();
+		if($redirect_url==null) $redirect_url=Utils::homeUrl();
 		$redirect_url=urlencode($redirect_url);
 		$url=str_replace('{WEIXIN_APPID}', $this->_appid, $this->qrcode_access_url);
 		$url=str_replace('{STATE}', $state, $url);
@@ -128,12 +128,12 @@ class Sns extends AppKey{
 	 * 获取用户信息
 	 * @return mixed
 	 */
-	public function get_user(){
+	public function getUser(){
 		if(empty($this->_sns_access_token)||empty($this->_sns_access_token['access_token'])) return new Result(false, "access not find");
 		$url=str_replace('{ACCESS_TOKEN}', $this->_sns_access_token['access_token'], $this->sns_user_url);
 		$url=str_replace('{OPENID}', $this->_sns_access_token['openid'], $url);
-		$body=$this->_make_request($url);
-		$json=$this->_check_return($body);
+		$body=$this->_makeRequest($url);
+		$json=$this->_checkReturn($body);
 		if (is_object($json)) return $json;
 		return new Result(true, $json);
 	}
@@ -146,7 +146,7 @@ class Sns extends AppKey{
 	 * 检测access token 是否有效
 	 * @param array $json
 	 */
-	public function check_access(){
+	public function checkAccess(){
 		$json=$this->_sns_access_token;
 		if(isset($json['access_token'])
 			 &&isset($json['refresh_token'])
@@ -154,7 +154,7 @@ class Sns extends AppKey{
 				){
 					$url=str_replace('{ACCESS_TOKEN}', $json['access_token'], $this->sns_access_check_url);
 					$url=str_replace('{OPENID}',$json['openid'], $url);
-					$body=$this->_make_request($url);
+					$body=$this->_makeRequest($url);
 					$body=json_decode($body,true);
 					if($body['errcode']!=0) return false;
 					return true;

@@ -27,11 +27,11 @@ class Folder implements AccessCache
     	if (strpos($appid, '/')!==false||strpos($appid, '\\')!==false)$appid=md5($appid);
     	return $this->_folder.$this->_spoce."_".$appid.".cache";
     }
-    public function set_access($appid,$access,$time){
+    public function setAccess($appid,$access,$time){
     	$filename=$this->_file($appid);
     	return @file_put_contents($filename, time()+$time."|".$access);
     }
-    public function get_access($appid){
+    public function getAccess($appid){
     	$filename=$this->_file($appid);
     	if (!is_file($filename)) return array(null,0);
     	$data=file_get_contents($filename);

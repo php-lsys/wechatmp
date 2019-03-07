@@ -17,7 +17,7 @@ class Text implements Type{
 	public function __construct($msg){
 		$this->text=$msg;
 	}
-	public function to_Xml($ToUserName, $FromUserName){
+	public function toXml($ToUserName, $FromUserName){
 		$time = time();
 		$Tpl = "<xml>
 					<ToUserName><![CDATA[%s]]></ToUserName>
@@ -27,15 +27,15 @@ class Text implements Type{
 					<Content><![CDATA[%s]]></Content>
 					<FuncFlag>0</FuncFlag>
 					</xml>";
-		$resultStr = sprintf($Tpl, $ToUserName, $FromUserName, $time,$this->to_name(), $this->text);
+		$resultStr = sprintf($Tpl, $ToUserName, $FromUserName, $time,$this->toName(), $this->text);
 		return  $resultStr;
 	}
-	public function to_array(){
+	public function toArray(){
 		return array(
 			 "content"=>$this->text
 		);
 	}
-	public function to_name(){
+	public function toName(){
 		return 'text';
 	}
 }

@@ -23,15 +23,15 @@ class Mass extends Access{
 	 * @param Type $type
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function tag_sendall($tagid,Type $type){
-		$name=$type->to_name();
+	public function tagSendall($tagid,Type $type){
+		$name=$type->toName();
 		if ($name=='video')$name='mpvideo';//特殊
-		$data=$this->_make_run($this->sendall_url,array(
+		$data=$this->_makeRun($this->sendall_url,array(
 			"filter"=>array(
 				"is_to_all"=>false,
 				"tag_id"=>$tagid
 			),
-			$name=>$type->to_array(),
+			$name=>$type->toArray(),
 			"msgtype"=>$name
 		));
 		if (is_object($data)) return $data;
@@ -43,13 +43,13 @@ class Mass extends Access{
 	 * @param Type $type
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function openid_send($openid,Type $type){
+	public function openidSend($openid,Type $type){
 		if (is_string($openid))$openid=array($openid);
-		$name=$type->to_name();
+		$name=$type->toName();
 		if ($name=='video')$name='mpvideo';//特殊
-		$data=$this->_make_run($this->send_url,array(
+		$data=$this->_makeRun($this->send_url,array(
 			"touser"=>$openid,
-		 	$name=>$type->to_array(),
+		 	$name=>$type->toArray(),
 			"msgtype"=>$name,
 		    "send_ignore_reprint"=>0
 		));
@@ -61,8 +61,8 @@ class Mass extends Access{
 	 * @param string $msgid
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function delete_send($msgid){
-		$data=$this->_make_run($this->delete_url,array(
+	public function deleteSend($msgid){
+		$data=$this->_makeRun($this->delete_url,array(
 			"msg_id"=>$msgid
 		));
 		if (is_object($data)) return $data;
@@ -75,11 +75,11 @@ class Mass extends Access{
 	 * @return \LSYS\Wechat\Result
 	 */
 	public function preview($openid,Type $type){
-		$name=$type->to_name();
+		$name=$type->toName();
 		if ($name=='video')$name='mpvideo';//特殊
-		$data=$this->_make_run($this->preview_url,array(
+		$data=$this->_makeRun($this->preview_url,array(
 			"touser"=>$openid,
-		 	$name=>$type->to_array(),
+		 	$name=>$type->toArray(),
 			"msgtype"=>$name,
 		));
 		if (is_object($data)) return $data;
@@ -91,7 +91,7 @@ class Mass extends Access{
 	 * @return \LSYS\Wechat\Result
 	 */
 	public function get($msgid){
-		$data=$this->_make_run($this->get,array(
+		$data=$this->_makeRun($this->get,array(
 			"msg_id"=>$msgid
 		));
 		if (is_object($data)) return $data;

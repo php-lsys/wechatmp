@@ -45,7 +45,7 @@ class Media extends Access{
 			}
 		}
 		$url=str_replace('{TYPE}',$type, $this->upload_url);
-		$data=$this->_make_run($url,array("media"=>new \CURLFile($file)),false);
+		$data=$this->_makeRun($url,array("media"=>new \CURLFile($file)),false);
 		if (is_object($data)) return $data;
 		return new Result(true, $data['media_id']);
 	}
@@ -54,9 +54,9 @@ class Media extends Access{
 	 */
 	public function get($media_id){
 		$url=str_replace('{MEDIA_ID}',$media_id, $this->upload_get_url);
-		$data=ltrim($this->_make_run($url,array(),true,false));
+		$data=ltrim($this->_makeRun($url,array(),true,false));
 		if (substr($data,0,2)=='{"'){
-			$data=$this->_check_return($data);
+			$data=$this->_checkReturn($data);
 			if (is_object($data)) return $data;
 			if (isset($data['video_url']))$data=$data['video_url'];
 			return new Result(true, $data);
@@ -90,16 +90,16 @@ class Media extends Access{
 	/**
 	 * 上传图片
 	 */
-	public function material_img($file){
-		$data=$this->_make_run($this->upload_img_url,array("media"=>new \CURLFile($file)),false);
+	public function materialImg($file){
+		$data=$this->_makeRun($this->upload_img_url,array("media"=>new \CURLFile($file)),false);
 		if (is_object($data)) return $data;
 		return new Result(true, $data['url']);
 	}
 	/**
 	 * 上传文章[同:material_add_news,参数一致]
 	 */
-	public function material_news(array $data){
-		$data=$this->_make_run($this->upload_news_url,array('articles'=>func_get_args()));
+	public function materialNews(array $data){
+		$data=$this->_makeRun($this->upload_news_url,array('articles'=>func_get_args()));
 		if (is_object($data)) return $data;
 		return new Result(true, $data['url']);
 	}
@@ -107,7 +107,7 @@ class Media extends Access{
 	 * 添加永久资源
 	 * 当type 为视频时,需要 $title $introduction
 	 */
-	public function material_upload($file,$type=null,$title=null,$introduction=null){
+	public function materialUpload($file,$type=null,$title=null,$introduction=null){
 		if ($type==null){
 			$ext=substr(strrchr($file, '.'), 1);
 			foreach (self::$upload_material_type_rule as $k=>$v){
@@ -123,7 +123,7 @@ class Media extends Access{
 					"title"=>$title, "introduction"=>$introduction
 			),JSON_UNESCAPED_UNICODE);
 		}
-		$data=$this->_make_run($url,$json,false);
+		$data=$this->_makeRun($url,$json,false);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}
@@ -132,8 +132,8 @@ class Media extends Access{
 	 * @param string $media_id
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function material_del($media_id){
-		$data=$this->_make_run($this->upload_material_del_news_url,array(
+	public function materialDel($media_id){
+		$data=$this->_makeRun($this->upload_material_del_news_url,array(
 			'media_id'=>$media_id,
 		));
 		if (is_object($data)) return $data;
@@ -144,12 +144,12 @@ class Media extends Access{
 	 * @param string $media_id
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function material_get($media_id){
-		$data=$this->_make_run($this->upload_material_get_news_url,array(
+	public function materialGet($media_id){
+		$data=$this->_makeRun($this->upload_material_get_news_url,array(
 				'media_id'=>$media_id,
 		),true,false);
 		if (substr($data,0,2)=='{"'){
-			$data=$this->_check_return($data);
+			$data=$this->_checkReturn($data);
 			if (is_object($data)) return $data;
 			if (isset($data['video_url']))$data=$data['video_url'];
 			return new Result(true, $data);
@@ -169,8 +169,8 @@ class Media extends Access{
 	 * @param number $limit
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function material_batchget($type,$offset=0,$limit=10){
-		$data=$this->_make_run($this->batchget_material_url,array(
+	public function materialBatchget($type,$offset=0,$limit=10){
+		$data=$this->_makeRun($this->batchget_material_url,array(
 			"type"=>$type,
 			"offset"=>$offset,
 			"count"=>$limit
@@ -182,8 +182,8 @@ class Media extends Access{
 	 * 获取资源数量
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function material_count(){
-		$data=$this->_make_run($this->get_materialcount_url);
+	public function materialCount(){
+		$data=$this->_makeRun($this->get_materialcount_url);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}
@@ -203,8 +203,8 @@ class Media extends Access{
        "content_source_url"=>'来源地址'
     );
 	 */
-	public function material_add_news(array $data){
-		$data=$this->_make_run($this->upload_material_add_news_url,array('articles'=>func_get_args()));
+	public function materialAddNews(array $data){
+		$data=$this->_makeRun($this->upload_material_add_news_url,array('articles'=>func_get_args()));
 		if (is_object($data)) return $data;
 		return new Result(true, $data['media_id']);
 	}
@@ -215,8 +215,8 @@ class Media extends Access{
 	 * @param array $data
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function material_update_news($media_id,$index,array $data){
-		$data=$this->_make_run($this->upload_material_update_news_url,array(
+	public function materialUpdateNews($media_id,$index,array $data){
+		$data=$this->_makeRun($this->upload_material_update_news_url,array(
 			'media_id'=>$media_id,
 			'index'=>$index,
 			'articles'=>$data

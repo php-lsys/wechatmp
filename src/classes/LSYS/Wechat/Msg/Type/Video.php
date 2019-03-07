@@ -22,7 +22,7 @@ class Video implements Type{
 		$this->body=$body;
 		$this->thumb_media_id=$thumb_media_id;
 	}
-	public function to_Xml($ToUserName, $FromUserName){
+	public function toXml($ToUserName, $FromUserName){
 		$time = time();
 		$Tpl = "<xml>
 			<ToUserName><![CDATA[%s]]></ToUserName>
@@ -34,10 +34,10 @@ class Video implements Type{
 		<Title><![CDATA[%s]]></Title>
 		<Description><![CDATA[%s]]></Description>
 		</Video>";
-		$resultStr = sprintf($Tpl, $ToUserName, $FromUserName, $time,$this->to_name(),$this->media_id,$this->title, $this->body);
+		$resultStr = sprintf($Tpl, $ToUserName, $FromUserName, $time,$this->toName(),$this->media_id,$this->title, $this->body);
 		return  $resultStr;
 	}
-	public function to_array(){
+	public function toArray(){
 		return array(
 			"media_id"=>$this->media_id,
 	      "thumb_media_id"=>$this->thumb_media_id,
@@ -45,7 +45,7 @@ class Video implements Type{
 	      "description"=>$this->body
 		);
 	}
-	public function to_name(){
+	public function toName(){
 		return 'video';
 	}
 }

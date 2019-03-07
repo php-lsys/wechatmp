@@ -17,7 +17,7 @@ class AutoReply extends Access{
 	 * @return \LSYS\Wechat\Result
 	 */
 	public function get(){
-		$data=$this->_make_run($this->get_url);
+		$data=$this->_makeRun($this->get_url);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}

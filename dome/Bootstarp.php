@@ -10,7 +10,7 @@ LSYS\Config\File::dirs(array(
 DI::$config="wechat_mp.default";
 //如果你的配置文件自定义存放位置[如存放到数据库],通过以下方法即可
 // class mydi implements LSYS\Wechat\DI{//实现一个配置依赖
-//     public function wechat_config(){
+//     public function wechatConfig(){
 //         return new \LSYS\Config\Arr(array(
 //             "app_id"=>'wxa3f2202198fde906',
 //             //access 用到
@@ -34,12 +34,12 @@ DI::$config="wechat_mp.default";
 // DI::set(new mydi());
 
 function outresult(LSYS\Wechat\Result $result){
-	if (!$result->get_status()){
-		echo "fail:".$result->get_msg()."\n";
+	if (!$result->getStatus()){
+		echo "fail:".$result->getMsg()."\n";
 	}else {
 		$m=PHP_SAPI=='cli'?"\n":"<pre>";
 		echo "success:".$m;
-		print_r($result->get_data());
+		print_r($result->getData());
 		echo $m;
 	}
 }

@@ -6,7 +6,7 @@
  * @license    http://www.apache.org/licenses/LICENSE-2.0
  */
 namespace LSYS\Wechat;
-class Qrcode extends Access{
+class QrCode extends Access{
 /**
 	 * 二维码请求地址
 	 * @var string
@@ -17,8 +17,8 @@ class Qrcode extends Access{
 	 * @param number $expire_seconds
 	 * @param number $scene_id
 	 */
-	public function qrcode_tmp($scene_id=1,$expire_seconds=1800){
-		$data=$this->_make_run($this->qrcode_url,array(
+	public function qrcodeTmp($scene_id=1,$expire_seconds=1800){
+		$data=$this->_makeRun($this->qrcode_url,array(
 			"expire_seconds"=>$expire_seconds,
 			"action_name"=>"QR_SCENE",
 			"action_info"=>array(
@@ -35,7 +35,7 @@ class Qrcode extends Access{
 	 * @param number $scene_id
 	 */
 	public function qrcode($scene_id=1){
-		$data=$this->_make_run($this->qrcode_url,array(
+		$data=$this->_makeRun($this->qrcode_url,array(
 				"action_name"=>"QR_LIMIT_SCENE",
 				"action_info"=>array(
 						"scene"=>array(
@@ -51,8 +51,8 @@ class Qrcode extends Access{
 	 * @param string $ticket
 	 * @return string
 	 */
-	public static function qrcode_link($ticket){
-		if ($ticket instanceof Result) $ticket=$ticket->get_data();
+	public static function qrcodeLink($ticket){
+		if ($ticket instanceof Result) $ticket=$ticket->getData();
 		return "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".$ticket;
 	}
 }

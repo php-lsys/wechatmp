@@ -16,7 +16,7 @@ abstract class AppKey extends AppBase{
 	/**
 	 * 创建一个请求
 	 */
-	protected function _make_request($url,$post=array()){
+	protected function _makeRequest($url,$post=array()){
 		$curl = curl_init($url);
 		$options = array();
 		if ($post) {
@@ -39,7 +39,7 @@ abstract class AppKey extends AppBase{
 	 * 检测结果返回
 	 * @param string $body
 	 */
-	protected function _check_return($body){
+	protected function _checkReturn($body){
 		$json=json_decode($body,true);
 		if(isset($json['errcode'])&&$json['errcode']!=0){
 			if (isset($json['errmsg']))$msg=$json['errmsg'].":".$json['errcode'];

@@ -17,14 +17,14 @@ interface Type{
 	 * @param string $FromUserName
 	 * @return string 
 	 */
-	public function to_xml($ToUserName,$FromUserName);
+	public function toXml($ToUserName,$FromUserName);
 	/**
 	 * 返回JSON数据
 	 * @return array
 	 */
-	public function to_array();
+	public function toArray();
 	/**
 	 * 获得类型名
 	 */
-	public function to_name();
+	public function toName();
 }

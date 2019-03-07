@@ -21,8 +21,8 @@ class TplMsg extends Access{
 	 * @param int $industry_id2
 	 * @return mixed
 	 */
-	public function set_industry($industry_id1,$industry_id2){
-		$data=$this->_make_run($this->set_industry_url,array(
+	public function setIndustry($industry_id1,$industry_id2){
+		$data=$this->_makeRun($this->set_industry_url,array(
 			"industry_id1"=>$industry_id1,'industry_id2'=>$industry_id2
 		));
 		if (is_object($data)) return $data;
@@ -32,8 +32,8 @@ class TplMsg extends Access{
 	 * get industry
 	 * @return array
 	 */
-	public function get_industry(){
-		$data=$this->_make_run($this->get_industry_url);
+	public function getIndustry(){
+		$data=$this->_makeRun($this->get_industry_url);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}
@@ -56,8 +56,8 @@ class TplMsg extends Access{
 	 * @param string $template_id_short
 	 * @return mixed
 	 */
-	public function add_template($template_id_short){
-		$data=$this->_make_run($this->add_template_url,array(
+	public function addTemplate($template_id_short){
+		$data=$this->_makeRun($this->add_template_url,array(
 			"template_id_short"=>$template_id_short
 		));
 		if (is_object($data)) return $data;
@@ -67,8 +67,8 @@ class TplMsg extends Access{
 	 * get template
 	 * @return mixed
 	 */
-	public function get_template(){
-		$data=$this->_make_run($this->get_template_url);
+	public function getTemplate(){
+		$data=$this->_makeRun($this->get_template_url);
 		if (is_object($data)) return $data;
 		return new Result(true, $data['template_list']);
 	}
@@ -77,8 +77,8 @@ class TplMsg extends Access{
 	 * @param string $template_id
 	 * @return mixed
 	 */
-	public function del_template($template_id){
-		$data=$this->_make_run($this->del_template_url,array("template_id"=>$template_id));
+	public function delTemplate($template_id){
+		$data=$this->_makeRun($this->del_template_url,array("template_id"=>$template_id));
 		if (is_object($data)) return $data;
 		return new Result(true);
 	}
@@ -110,7 +110,7 @@ class TplMsg extends Access{
 					"color"=>isset($color[$k])?$color[$k]:"#173177"
 			);
 		}
-		return $this->tpl_send($touser, $template_id,$_data,$url);
+		return $this->tplSend($touser, $template_id,$_data,$url);
 	}
 	/**
 	 * send message to user form tpl
@@ -120,9 +120,9 @@ class TplMsg extends Access{
 	 * @param string $url
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function tpl_send($touser,$template_id,$data=array(),$url=null){
-		if ($url==null)$url=Utils::home_url();
-		$data=$this->_make_run($this->send_url,array(
+	public function tplSend($touser,$template_id,$data=array(),$url=null){
+		if ($url==null)$url=Utils::homeUrl();
+		$data=$this->_makeRun($this->send_url,array(
 				"touser"=>$touser,
 				"template_id"=>$template_id,
 				"url"=>$url,

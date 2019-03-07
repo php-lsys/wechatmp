@@ -7,5 +7,5 @@
  */
 namespace LSYS\Wechat;
 interface AccessCache extends AccessShare{
-	public function set_access($appid,$access,$time);
+	public function setAccess($appid,$access,$time);
 }

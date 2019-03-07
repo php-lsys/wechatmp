@@ -20,8 +20,8 @@ include_once __DIR__."/Bootstarp.php";
 // </xml>';
 
 
-$msg=\LSYS\Wechat\DI::get()->wechat_msg();
-$msg->set_callback(new CallbackCallable(function($msg,$data){
+$msg=\LSYS\Wechat\DI::get()->wechatMsg();
+$msg->setCallback(new CallbackCallable(function($msg,$data){
 	switch ($msg){
 		case 'event':
 			switch (strtolower($data['Event'])){
@@ -64,7 +64,7 @@ $msg->set_callback(new CallbackCallable(function($msg,$data){
 					$card_id=$data['CardId'];
 					$code="198374613512";//你的密码
 					$openid=$data['FromUserName'];
-					$card=LSYS\Wechat\DI::get()->wechat_card();
+					$card=LSYS\Wechat\DI::get()->wechatCard();
 					$data=$card->qrcode(Card::QR_CARD,array(
 						"card_id"=>$card_id,
 						"code"=> $code,

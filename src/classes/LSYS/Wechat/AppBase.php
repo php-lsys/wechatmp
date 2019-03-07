@@ -18,7 +18,7 @@ abstract class AppBase{
 		$this->_config=$config;
 		$this->_appid=$config->get("app_id");
 	}
-	public function get_appid(){
+	public function getAppid(){
 		return $this->_appid;
 	}
 }

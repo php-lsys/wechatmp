@@ -5,17 +5,17 @@
 use LSYS\Wechat\JS;
 include_once __DIR__."/Bootstarp.php";
 // 获取使用文件缓存 access
-JS::set_share_access(new LSYS\Wechat\AccessCache\Folder(__DIR__."/access_cache"));
+JS::setShareAccess(new LSYS\Wechat\AccessCache\Folder(__DIR__."/access_cache"));
 // 共享 jsapi ticket 缓存接口
-JS::set_share_jsapi_ticket(new LSYS\Wechat\AccessCache\Folder(__DIR__."/access_cache",'jsapitick'));
+JS::setShareJsapiTicket(new LSYS\Wechat\AccessCache\Folder(__DIR__."/access_cache",'jsapitick'));
 // 共享 api ticket 缓存接口
-JS::set_share_api_ticket(new LSYS\Wechat\AccessCache\Folder(__DIR__."/access_cache",'apitick'));
+JS::setShareApiTicket(new LSYS\Wechat\AccessCache\Folder(__DIR__."/access_cache",'apitick'));
 
 
-$js=\LSYS\Wechat\DI::get()->wechat_js();
-$appid=$js->get_appid();
+$js=\LSYS\Wechat\DI::get()->wechatJs();
+$appid=$js->getAppid();
 $url='http://baidu.com';
-$signature=$js->get_jsapi_signature($url,$ticket,$time,$rand);
+$signature=$js->getJsapiSignature($url,$ticket,$time,$rand);
 ?>
 
 <script type="text/javascript" src=" http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>

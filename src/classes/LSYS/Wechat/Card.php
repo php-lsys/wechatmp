@@ -17,7 +17,7 @@ class Card extends Access{
 	 * @return \LSYS\Wechat\Result
 	 */
 	public function create($card){
-		$data=$this->_make_run($this->create_card_url,array("card"=>$card));
+		$data=$this->_makeRun($this->create_card_url,array("card"=>$card));
 		if (is_object($data)) return $data;
 		return new Result(true, $data['card_id']);
 	}
@@ -69,7 +69,7 @@ class Card extends Access{
 			break;
 		}
 		if (!isset($arr))return new Result(false,'qr wrong');
-		$data=$this->_make_run($this->create_qrcode_url,$arr);
+		$data=$this->_makeRun($this->create_qrcode_url,$arr);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}
@@ -83,13 +83,13 @@ class Card extends Access{
 	 * @param string $check_consume 是否检测核销
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function code_get($card_id,$code,$check_consume=true){
+	public function codeGet($card_id,$code,$check_consume=true){
 		$arr=array(
 			"card_id" =>$card_id,
 			"code" => $code,
 			"check_consume" =>$check_consume
 		);
-		$data=$this->_make_run($this->query_url,$arr);
+		$data=$this->_makeRun($this->query_url,$arr);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}
@@ -101,12 +101,12 @@ class Card extends Access{
 	 * @param string $card_id
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function code_consume($card_id,$code){
+	public function codeConsume($card_id,$code){
 		$arr=array(
 			"code" => $code,
 			"card_id" =>$card_id,
 		);
-		$data=$this->_make_run($this->consume_url,$arr);
+		$data=$this->_makeRun($this->consume_url,$arr);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}
@@ -114,7 +114,7 @@ class Card extends Access{
 	
 	
 	//常用票 -- start --
-	protected static function _base_info(array $data){
+	protected static function _baseInfo(array $data){
 		extract($data);
 		//dome...
 		// 		$data=array(
@@ -132,7 +132,7 @@ class Card extends Access{
 		if (!isset($end_time))$end_time=time()+3600*24*7;
 		if (!isset($get_limit))	$get_limit='1';//限制领取
 		if (!isset($quantity))$quantity='5000';//库存
-		if (!isset($url))$url=Utils::home_url();
+		if (!isset($url))$url=Utils::homeUrl();
 		if (!isset($location_id))$location_id=array();//门店位置
 		if (!isset($can_share))$can_share=false;
 		if (!isset($can_give_friend))$can_give_friend=false;
@@ -173,8 +173,8 @@ class Card extends Access{
 	 * @param array $data
 	 * @return \LSYS\Wechat\Result
 	 */
-	public static function meeting_ticket(array $data){
-		$bf=self::_base_info($data);
+	public static function meetingTicket(array $data){
+		$bf=self::_baseInfo($data);
 		if (is_object($bf)) return $bf;
 		// 		$data=array(
 		// 			'detail'=>'',
@@ -200,7 +200,7 @@ class Card extends Access{
 	 * @param string $entrance
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function meeting_update($card_id,$code,$seat_number,$zone='全场',$entrance='正门'){
+	public function meetingUpdate($card_id,$code,$seat_number,$zone='全场',$entrance='正门'){
 		$arr=array(
 			"code"=>$code,
 			"card_id"=>$card_id,
@@ -208,7 +208,7 @@ class Card extends Access{
 			"entrance" =>$entrance,
 			"seat_number" =>$seat_number
 		);
-		$data=$this->_make_run($this->meeting_update_url,$arr);
+		$data=$this->_makeRun($this->meeting_update_url,$arr);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}
@@ -217,8 +217,8 @@ class Card extends Access{
 	 * @param array $data
 	 * @return \LSYS\Wechat\Result
 	 */
-	public static function scenic_ticket(array $data){
-		$bf=self::_base_info($data);
+	public static function scenicTicket(array $data){
+		$bf=self::_baseInfo($data);
 		if (is_object($bf)) return $bf;
 		// 		$data=array(
 		// 			'ticket_class'=>'',
@@ -226,7 +226,7 @@ class Card extends Access{
 		// 		);
 		extract($data);
 		if (!isset($ticket_class))$ticket_class="全日票";
-		if (!isset($guide_url))$guide_url=Utils::home_url();
+		if (!isset($guide_url))$guide_url=Utils::homeUrl();
 		$data=array(
 			"card_type"=> "SCENIC_TICKET",
 			"scenic_ticket"=>array(
@@ -243,8 +243,8 @@ class Card extends Access{
 	 * @param array $data
 	 * @return \LSYS\Wechat\Result
 	 */
-	public static function movie_ticket(array $data){
-		$bf=self::_base_info($data);
+	public static function movieTicket(array $data){
+		$bf=self::_baseInfo($data);
 		if (is_object($bf)) return $bf;
 		// 		$data=array(
 	// 				'detail'=>'detail',
@@ -273,7 +273,7 @@ class Card extends Access{
 	 * @param string $ticket_class
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function movie_update(
+	public function movieUpdate(
 			$card_id,$code,$show_time,$screening_room,$seat_number,
 			$duration='120',$ticket_class='3D'){
 		if (is_string($seat_number))$seat_number=array($seat_number);
@@ -286,7 +286,7 @@ class Card extends Access{
 				"screening_room"=>$screening_room,
 				"seat_number"=>$seat_number
 		);
-		$data=$this->_make_run($this->movie_update_url,$arr);
+		$data=$this->_makeRun($this->movie_update_url,$arr);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}
@@ -296,8 +296,8 @@ class Card extends Access{
 	 * @param array $data
 	 * @return \LSYS\Wechat\Result
 	 */
-	public static function boarding_ticket(array $data){
-		$bf=self::_base_info($data);
+	public static function boardingTicket(array $data){
+		$bf=self::_baseInfo($data);
 		if (is_object($bf)) return $bf;
 		// 		$data=array(
 		// 				'from'=>'成都',
@@ -336,7 +336,7 @@ class Card extends Access{
 	 * @param string $is_cancel
 	 * @return \LSYS\Wechat\Result
 	 */
-	public function boarding_pass(
+	public function boardingPass(
 		$card_id,$code,$passenger_name,$class,$seat,
 		$etkt_bnr,$qrcode_data,$is_cancel=false){
 		$arr=array(
@@ -349,7 +349,7 @@ class Card extends Access{
 			"qrcode_data"=> $qrcode_data,
 			"is_cancel "=> $is_cancel
 		);
-		$data=$this->_make_run($this->boarding_pass_url,$arr);
+		$data=$this->_makeRun($this->boarding_pass_url,$arr);
 		if (is_object($data)) return $data;
 		return new Result(true, $data);
 	}
