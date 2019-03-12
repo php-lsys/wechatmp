@@ -4,9 +4,9 @@
 
 > access 本地存放以实现以下方式存放,可自行实现,access超时会自动更新,支持在后台进程长时间运行调用
 	
-	"lsys/wechatmp-accesscache-memcache":"~1.0.0",
-	"lsys/wechatmp-accesscache-memcached":"~1.0.0",
-	"lsys/wechatmp-accesscache-redis":"~1.0.0"
+	"lsys/wechatmp-accesscache-memcache":"~2.0.0",
+	"lsys/wechatmp-accesscache-memcached":"~2.0.0",
+	"lsys/wechatmp-accesscache-redis":"~2.0.0"
 
 > 本接口未包含微信支付.需要支付接口 请使用 https://github.com/php-lsys/paygateway
 
