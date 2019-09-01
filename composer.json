@@ -2,11 +2,15 @@
 	"name" : "lsys/wechatmp",
 	"type" : "library",
 	"license": "Apache-2.0",
-
 	"description" : "lsys module wechatmp",
 	"autoload" : {
 		"psr-4" : {
-			"LSYS\\" : "src/classes/LSYS/"
+			"LSYS\\" : [
+				"src/common/classes/LSYS/",
+				"src/accesscache-driver-redis/classes/LSYS/",
+				"src/accesscache-driver-memcached/classes/LSYS/",
+				"src/accesscache-driver-memcache/classes/LSYS/"
+			]
 		}
 	},
 	"require" : {
@@ -15,8 +19,8 @@
 		"lsys/session" : "~2.1.0"
 	},
 	"suggest": {
-		"lsys/wechatmp-accesscache-memcache":"~2.1.0",
-     	"lsys/wechatmp-accesscache-memcached":"~2.1.0",
-     	"lsys/wechatmp-accesscache-redis":"~2.1.0"
+		"lsys/memcache":"~2.1.0",
+     	"lsys/memcached":"~2.1.0",
+     	"lsys/redis":"~2.1.0"
     }
 }
