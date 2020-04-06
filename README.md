@@ -2,12 +2,6 @@
 
 > 开发本接口原因,网上没找到优雅的微信开源的接口代码,现存总有这些问题:使用方式不明朗,或加载过多废代码,或莫名其妙的一个接口实现还要依赖一个框架的脑残实现,或无法优雅的兼容的全局的access共享,综合以上原因,实现以下此代码
 
-> access 本地存放以实现以下方式存放,可自行实现,access超时会自动更新,支持在后台进程长时间运行调用
-	
-	"lsys/wechatmp-accesscache-memcache":"~2.0.0",
-	"lsys/wechatmp-accesscache-memcached":"~2.0.0",
-	"lsys/wechatmp-accesscache-redis":"~2.0.0"
-
 > 本接口未包含微信支付.需要支付接口 请使用 https://github.com/php-lsys/paygateway
 
 > 具体使用参考 dome 目录下示例,基本每个接口都有示例
